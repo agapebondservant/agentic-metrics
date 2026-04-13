@@ -1,0 +1,36 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "instructions": [
+    "docs/custom-guidelines.md"
+  ],
+  "agent": {
+    "default": {
+      "steps": 15
+    }
+  },
+  "plugin": [
+    "opencode-plugin-openspec"
+  ],
+  "provider": {
+    "vllm": {
+      "npm": "@ai-sdk/openai-compatible",
+      "name": "vLLM Server",
+      "options": {
+        "baseURL": "{env:CODE_LLM_API_BASE}",
+        "apiKey": "{env:CODE_LLM_TOKEN}",
+        "timeout": 600000,
+        "chunkTimeout": 30000,
+        "setCacheKey": true
+      },
+      "models": {
+        "ministral-14b-2512": {
+          "name": "ministral-14b-2512"
+        },
+        "devstral-2512": {
+          "name": "devstral-2512"
+        }
+      }
+    }
+  },
+  "model": "vllm/ministral-14b-2512"
+}
