@@ -36,7 +36,7 @@ oc apply -f ./openshift/openlit-otel-route.yaml
     ```shell
     oc new-project observability
 
-    # TODO: update secrets before applying
+    # TODO for the reader, update secrets before applying
     oc apply -f ./openshift/storage-secret.yaml
 
     # service account for the right permissions
