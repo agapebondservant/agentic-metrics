@@ -1,0 +1,22 @@
+apiVersion: observability.openshift.io/v1alpha1
+kind: ObservabilityInstaller
+metadata:
+  name: tracing
+  namespace: observability
+spec:
+  capabilities:
+    tracing:
+      enabled: false
+      operators:
+        install: true
+      storage:
+        objectStorage:
+          s3:
+            accessKeyID: <access_key_id>
+            accessKeySecret:
+              key: access_key_secret
+              name: s3-access-secret
+            bucket: <bucket_name>
+            endpoint: 'https://s3.us-east-1.amazonaws.com'
+            region: us-east-1
+

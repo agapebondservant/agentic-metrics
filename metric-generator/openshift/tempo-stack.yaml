@@ -1,0 +1,88 @@
+apiVersion: tempo.grafana.com/v1alpha1
+kind: TempoStack
+metadata:
+  name: tracing
+  namespace: observability
+spec:
+  networkPolicy:
+    enabled: true
+  observability:
+    grafana:
+      instanceSelector: {}
+    metrics: {}
+    tracing:
+      jaeger_agent_endpoint: 'localhost:6831'
+  timeout: 30s
+  resources: {}
+  search:
+    defaultResultLimit: 20
+    maxDuration: 0s
+  tenants:
+    authentication:
+      - tenantId: 1610b0c3-c509-4592-a256-a1871353dbfb
+        tenantName: application
+    mode: openshift
+  managementState: Managed
+  limits:
+    global:
+      ingestion: {}
+      query:
+        maxSearchDuration: 0s
+  serviceAccount: tempo-tracing
+  images: {}
+  template:
+    compactor:
+      podSecurityContext: {}
+      replicas: 1
+    distributor:
+      component:
+        podSecurityContext: {}
+        replicas: 1
+      tls:
+        enabled: false
+    gateway:
+      component:
+        podSecurityContext: {}
+        replicas: 1
+      enabled: true
+      ingress:
+        route:
+          termination: reencrypt
+        type: route
+      rbac:
+        enabled: false
+    ingester:
+      podSecurityContext: {}
+      replicas: 1
+    querier:
+      podSecurityContext: {}
+      replicas: 1
+    queryFrontend:
+      component:
+        podSecurityContext: {}
+        replicas: 1
+      jaegerQuery:
+        enabled: false
+        ingress:
+          route: {}
+        monitorTab:
+          enabled: false
+          prometheusEndpoint: ''
+        servicesQueryDuration: 72h0m0s
+        tempoQuery: {}
+      mcpServer: {}
+  replicationFactor: 1
+  storage:
+    secret:
+      credentialMode: static
+      name: coo-tracing-tempo
+      type: s3
+    tls:
+      enabled: false
+  storageSize: 10Gi
+  hashRing:
+    memberlist: {}
+  retention:
+    global:
+      traces: 48h0m0s
+

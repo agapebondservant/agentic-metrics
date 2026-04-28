@@ -1,7 +1,10 @@
 # Metric Generator
+
 App to demonstrate create agentic metrics.
 
 ## Environment
+
+### OpenLIT
 
 ```shell
 # create deployment
@@ -17,6 +20,36 @@ oc apply -f ./openshift/openlit-otel-route.yaml
 # troubleshooting, if you see missing `NEXTAUTH_SECRET`,
 #   then connect to the pod and delete `/app/client/data/.nextauth_secret`
 ```
+
+### OpenShift Telemetry
+
+1. Install the [Logging Operator](https://docs.redhat.com/en/documentation/red_hat_openshift_logging/6.5/html/installing_logging/installing-logging)
+
+2. Install the [Cluster Observability Operator](https://docs.redhat.com/en/documentation/red_hat_openshift_cluster_observability_operator/1-latest/html/installing_red_hat_openshift_cluster_observability_operator/installing-cluster-observability-operators)
+
+3. Install [end to end observability](https://docs.redhat.com/en/documentation/red_hat_openshift_cluster_observability_operator/1-latest/html/installing_red_hat_openshift_cluster_observability_operator/installing-end-to-end-observability) but make sure `tracing: false` as we will configure that by hand
+
+4. Install all [UI plugins](https://docs.redhat.com/en/documentation/red_hat_openshift_cluster_observability_operator/1-latest/html/ui_plugins_for_red_hat_openshift_cluster_observability_operator/index)
+
+5. Do these steps:
+
+    ```shell
+    oc new-project observability
+
+    # TODO: update secrets before applying
+    oc apply -f ./openshift/storage-secret.yaml
+
+    # service account for the right permissions
+    oc apply -f ./openshift/sa.yaml
+
+    # create tempo stack for tracing in openshift
+    oc apply -f ./openshift/tempo-stack.yaml
+    # might be installed, but just in case its not
+    oc apply -f ./openshift/ui-plugin.yaml
+
+    # otel
+    oc apply -f ./otel-collector.yaml
+    ```
 
 ## Setup
 
