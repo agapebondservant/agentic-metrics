@@ -79,3 +79,14 @@ uv run --env-file .env ./main.py
 ```shell
 uv black ./main.py
 ```
+
+## Docs
+
+1. [OpenShift Setup Blog](https://blog.stderr.at/openshift-platform/observability/observability/2025-11-23-hitchhikers-guide-to-distributed-tracing-with-opentelemetry-and-tempostack-part1/)
+2. [GitHub for Blog above](https://github.com/tjungbauer/openshift-clusterconfig-gitops/tree/main/clusters/management-cluster/setup-tempo-operator)
+3. [OpenLIT Docs](https://docs.openlit.io/latest/sdk/destinations/openlit#environment-variables)
+4. [Crew AI Docs](https://docs.crewai.com/en/observability/openlit)
+5. [OpenLIT Helm Chart GitHub](https://github.com/openlit/helm/tree/main/charts/openlit)
+6. [How to deploy the new Grafana Tempo operator on OpenShift](https://developers.redhat.com/articles/2023/08/01/how-deploy-new-grafana-tempo-operator-openshift)
+7. [Get started with the OpenShift Cluster Observability Operator](https://developers.redhat.com/articles/2024/07/09/get-started-openshift-cluster-observability-operator?source=sso)
+8. [Distributed tracing for agentic workflows with OpenTelemetry](https://developers.redhat.com/articles/2026/04/06/distributed-tracing-agentic-workflows-opentelemetry)
