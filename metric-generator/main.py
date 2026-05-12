@@ -2,6 +2,7 @@ from crewai import Agent, Task, Crew, LLM
 from opentelemetry import trace
 from random import randint, random
 from openlit import start_trace, init as openlit_init
+from openinference.instrumentation.crewai import CrewAIInstrumentor
 from time import time, sleep
 from uuid import uuid4
 from datetime import datetime
@@ -73,6 +74,9 @@ def main() -> None:
     llm_base_url = getenv("LLM_BASE_URL")
     llm_model_name = getenv("LLM_MODEL_NAME")
 
+    openlit_init(capture_message_content=True)
+    CrewAIInstrumentor().instrument(skip_dep_check=True)
+
     with start_trace(metric_collection_name) as trace:
         # set high level trace metadata
         trace.set_metadata(
@@ -112,7 +116,6 @@ def main() -> None:
         )
         log(metric_event_name, issue_id, "hi 5")
 
-        openlit_init(capture_message_content=True)
         log(metric_event_name, issue_id, "hi 6")
 
         result = crew.kickoff()

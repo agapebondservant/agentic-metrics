@@ -208,3 +208,5 @@ __marimo__/
 
 .DS_Store
 ignore/
+
+metric-generator/openshift/storage-secret.yaml
